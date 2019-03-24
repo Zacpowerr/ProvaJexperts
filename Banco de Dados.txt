@@ -1,0 +1,27 @@
+create database bancousuario;
+use bancoUsuario;
+create table endereco
+(
+id int not null primary key auto_increment,
+rua varchar(120) not null,
+numero int(4) not null,
+complemento varchar(20) not null,
+bairro varchar(120) not null,
+cidade varchar(120) not null,
+estado varchar(2) not null,
+cep int not null
+);
+create table usuario
+(
+id int not null primary key auto_increment,
+nome varchar(140) not null,
+email varchar(120) not null,
+telefone int,
+cargo enum('Diretor','Gerente','Consultor') not null,
+login varchar(120) not null,
+senha varchar(120) not null,
+cpf varchar(11),
+superior enum('Diretor','Gerente'),
+idEndereco int,
+foreign key(idEndereco) references Endereco(id)
+);
