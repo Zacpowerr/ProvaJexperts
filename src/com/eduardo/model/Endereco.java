@@ -3,7 +3,7 @@ package com.eduardo.model;
 public class Endereco {
 	private int id;
 	private String rua;
-	private int nunero;
+	private int numero;
 	private String complemento;
 	private String bairro;
 	private String cidade;
@@ -25,11 +25,12 @@ public class Endereco {
 	public void setRua(String rua) {
 		this.rua = rua;
 	}
-	public int getNunero() {
-		return nunero;
+	
+	public int getNumero() {
+		return numero;
 	}
-	public void setNunero(int nunero) {
-		this.nunero = nunero;
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 	public String getComplemento() {
 		return complemento;

@@ -10,48 +10,19 @@ public class Usuario {
 	private String senha;
 	private String cpf;
 	private String superior;
-	private int idEndereco;
-	private String rua;
-	private int cep;
-
-	public String getRua() {
-		return rua;
-	}
-
-	public void setRua(String rua) {
-		this.rua = rua;
-	}
-
-	public int getCep() {
-		return cep;
-	}
-
-	public void setCep(int cep) {
-		this.cep = cep;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
-	private String complemento;
-	private int numero;
+	private Endereco endereco;
 
 	public Usuario() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	public int getId() {
@@ -124,14 +95,6 @@ public class Usuario {
 
 	public void setSuperior(String superior) {
 		this.superior = superior;
-	}
-
-	public int getIdEndereco() {
-		return idEndereco;
-	}
-
-	public void setIdEndereco(int idEndereco) {
-		this.idEndereco = idEndereco;
 	}
 
 	@Override

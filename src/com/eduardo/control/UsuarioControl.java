@@ -53,9 +53,9 @@ public class UsuarioControl {
 	}
 
 	public UsuarioControl(JTextField tfNome, JTextField tfTel, JTextField tfEmail, JTextField tfCpf, JTextField tfLogin,
-			JPasswordField tfSenha, JTextField tfRua, JTextField tfNumero, JTextField tfComplemento, JTextField tfBairro,
-			JTextField tfCidade, JTextField tfEstado, JTextField tfCep, JComboBox cbCargo, JComboBox cbSuperior,
-			Usuario usuario, UsuarioDao usuarioDao) {
+			JPasswordField tfSenha, JTextField tfRua, JTextField tfNumero, JTextField tfComplemento,
+			JTextField tfBairro, JTextField tfCidade, JTextField tfEstado, JTextField tfCep, JComboBox cbCargo,
+			JComboBox cbSuperior, Usuario usuario, UsuarioDao usuarioDao) {
 		super();
 		this.tfNome = tfNome;
 		this.tfTel = tfTel;
@@ -161,24 +161,18 @@ public class UsuarioControl {
 			JOptionPane.showMessageDialog(null, "Preencha o campo Número", "erro", 0);
 			return;
 		}
-		endereco.setNunero(Integer.parseInt(tfNumero.getText()));
+		endereco.setNumero(Integer.parseInt(tfNumero.getText()));
 		if (tfEstado.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Preencha o campo Estado", "erro", 0);
 			return;
 		}
 		endereco.setEstado(tfEstado.getText());
-
-		boolean res = enderecoDao.cadastrar(endereco);
+		usuario.setEndereco(endereco);
+		boolean res = usuarioDao.cadastrar(usuario);
 		if (res) {
-			System.out.println("cadastrado");
-			usuario.setIdEndereco(pegarIdAction());
-			System.out.println(usuario.getSuperior());
-			res = usuarioDao.cadastrar(usuario);
-			if (res) {
-				JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso", "Cadastrado", 1
-						);
-			}
+			JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso", "Cadastrado", 1);
 		}
+
 	}
 
 	public void popularCBPesquisa() {
@@ -194,7 +188,8 @@ public class UsuarioControl {
 		model.setNumRows(0);
 		for (Usuario u : listusuario) {
 			model.addRow(new Object[] { u.getNome(), u.getCargo(), u.getTelefone(), u.getEmail(), u.getCpf(),
-					u.getLogin(), u.getSenha(), u.getRua(), u.getNumero(), u.getComplemento(), u.getCep() });
+					u.getLogin(), u.getSenha(), u.getEndereco().getRua(), u.getEndereco().getNumero(),
+					u.getEndereco().getComplemento(), u.getEndereco().getCep() });
 
 		}
 
@@ -202,12 +197,13 @@ public class UsuarioControl {
 
 	public void listarAction(Usuario usuario) {
 		System.out.println(usuario.getId());
-		listusuario = usuarioDao.pesquisarFiltro(usuario.getCargo(),usuario.getId());
+		listusuario = usuarioDao.pesquisarFiltro(usuario.getCargo(), usuario.getId());
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setNumRows(0);
 		for (Usuario u : listusuario) {
 			model.addRow(new Object[] { u.getNome(), u.getCargo(), u.getTelefone(), u.getEmail(), u.getCpf(),
-					u.getLogin(), u.getSenha(), u.getRua(), u.getNumero(), u.getComplemento(), u.getCep() });
+					u.getLogin(), u.getSenha(), u.getEndereco().getRua(), u.getEndereco().getNumero(),
+					u.getEndereco().getComplemento(), u.getEndereco().getCep() });
 
 		}
 
@@ -230,6 +226,6 @@ public class UsuarioControl {
 		tfTel.setText(vazio);
 		cbCargo.setSelectedIndex(0);
 		cbSuperior.setSelectedIndex(0);
-		
+
 	}
 }

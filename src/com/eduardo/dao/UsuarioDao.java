@@ -8,13 +8,15 @@ import java.util.List;
 
 import com.eduardo.factory.Dao;
 import com.eduardo.interfaces.DaoI;
+import com.eduardo.model.Endereco;
 import com.eduardo.model.Usuario;
 
 public class UsuarioDao extends Dao implements DaoI<Usuario> {
 
 	@Override
-	public boolean cadastrar(Usuario obj) {
-
+	public boolean cadastrar(Usuario obj)  {
+		EnderecoDao enderecoDao = new EnderecoDao();
+		enderecoDao.cadastrar(obj.getEndereco());
 		String sql = "insert into usuario(nome,email,telefone,cargo,login,senha,cpf,superior,idEndereco) values(?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement stmt;
@@ -28,13 +30,15 @@ public class UsuarioDao extends Dao implements DaoI<Usuario> {
 			stmt.setString(6, obj.getSenha());
 			stmt.setString(7, obj.getCpf());
 			stmt.setString(8, obj.getSuperior());
-			stmt.setInt(9, obj.getIdEndereco());
+			stmt.setInt(9, obj.getEndereco().getId());
+			System.out.println("Teste: "+ obj.getEndereco().getId());
 
 			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+//			conexao.rollback();
 			return false;
 		}
 
@@ -55,7 +59,7 @@ public class UsuarioDao extends Dao implements DaoI<Usuario> {
 			stmt.setString(6, obj.getSenha());
 			stmt.setString(7, obj.getCpf());
 			stmt.setString(8, obj.getSuperior());
-			stmt.setInt(9, obj.getIdEndereco());
+			stmt.setInt(9, obj.getEndereco().getId());
 			stmt.setInt(10, obj.getId());
 			stmt.executeUpdate();
 			return true;
@@ -97,6 +101,7 @@ public class UsuarioDao extends Dao implements DaoI<Usuario> {
 
 			while (result.next()) {
 				Usuario u = new Usuario();
+				u.setEndereco(new Endereco());
 				u.setNome(result.getString("nome"));
 				u.setEmail(result.getString("email"));
 				u.setTelefone(result.getInt("telefone"));
@@ -105,10 +110,10 @@ public class UsuarioDao extends Dao implements DaoI<Usuario> {
 				u.setSenha(result.getString("senha"));
 				u.setCpf(result.getString("cpf"));
 
-				u.setRua(result.getString("e.rua"));
-				u.setNumero(result.getInt("e.numero"));
-				u.setComplemento(result.getString("e.complemento"));
-				u.setCep(result.getInt("e.cep"));
+				u.getEndereco().setRua((result.getString("e.rua")));
+				u.getEndereco().setNumero((result.getInt("e.numero")));
+				u.getEndereco().setComplemento((result.getString("e.complemento")));
+				u.getEndereco().setCep((result.getInt("e.cep")));
 
 				listUsuario.add(u);
 
@@ -134,6 +139,7 @@ public List<Usuario> pesquisarCB(){
 
 		while (result.next()) {
 			Usuario u = new Usuario();
+			u.setEndereco(new Endereco());
 			u.setId(result.getInt("id"));
 			u.setNome(result.getString("nome"));
 			u.setEmail(result.getString("email"));
@@ -143,10 +149,10 @@ public List<Usuario> pesquisarCB(){
 			u.setSenha(result.getString("senha"));
 			u.setCpf(result.getString("cpf"));
 
-			u.setRua(result.getString("e.rua"));
-			u.setNumero(result.getInt("e.numero"));
-			u.setComplemento(result.getString("e.complemento"));
-			u.setCep(result.getInt("e.cep"));
+			u.getEndereco().setRua((result.getString("e.rua")));
+			u.getEndereco().setNumero((result.getInt("e.numero")));
+			u.getEndereco().setComplemento((result.getString("e.complemento")));
+			u.getEndereco().setCep((result.getInt("e.cep")));
 
 			listUsuario.add(u);
 
@@ -175,6 +181,7 @@ public List<Usuario> pesquisarCB(){
 
 			while (result.next()) {
 				Usuario u = new Usuario();
+				u.setEndereco(new Endereco());
 				u.setNome(result.getString("nome"));
 				u.setEmail(result.getString("email"));
 				u.setTelefone(result.getInt("telefone"));
@@ -183,10 +190,10 @@ public List<Usuario> pesquisarCB(){
 				u.setSenha(result.getString("senha"));
 				u.setCpf(result.getString("cpf"));
 
-				u.setRua(result.getString("e.rua"));
-				u.setNumero(result.getInt("e.numero"));
-				u.setComplemento(result.getString("e.complemento"));
-				u.setCep(result.getInt("e.cep"));
+				u.getEndereco().setRua((result.getString("e.rua")));
+				u.getEndereco().setNumero((result.getInt("e.numero")));
+				u.getEndereco().setComplemento((result.getString("e.complemento")));
+				u.getEndereco().setCep((result.getInt("e.cep")));
 
 				listUsuario.add(u);
 
